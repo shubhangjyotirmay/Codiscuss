@@ -13,7 +13,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(session({
-    secret: "secret",
+    secret: process.env.session_secret,
     resave: false,
     saveUninitialized: false
 }));
