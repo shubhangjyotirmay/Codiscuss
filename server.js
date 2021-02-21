@@ -24,7 +24,7 @@ app.use(flash());
 
 const mongoURL = "mongodb+srv://Codiscuss-admin:" + process.env.dB_password + "@codiscuss.qhijz.mongodb.net/codiscussDB?retryWrites=true&w=majority"
 
-mongoose.connect("mongodb+srv://Codiscuss-admin:Codiscuss2020Codekaksha@codiscuss.qhijz.mongodb.net/codiscussDB?retryWrites=true&w=majority", {
+mongoose.connect(mongoURL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false
