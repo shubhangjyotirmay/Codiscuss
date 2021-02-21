@@ -18,6 +18,9 @@
     "url": "https://github.com/shubhangjyotirmay/Codiscuss/issues"
   },
   "homepage": "https://github.com/shubhangjyotirmay/Codiscuss#readme",
+  "engines": {
+    "node": "12.18.3"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
