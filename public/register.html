@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="resources/logo.png">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+    <title>Codiscuss</title>
+</head>
+
+<body>
+
+    <div class="register-page">
+
+        <div class="sign-up-form z-depth-3">
+            <form action="/register" method="post">
+                <h2>Sign Up!</h2>
+                <div class="input-field">
+                    <input type="text" name="name" placeholder="Name" autocomplete="off">
+                </div>
+                <div class="input-field">
+                    <input type="email" name="email" placeholder="Email" class="validate" autocomplete="off"> 
+                    <span class="helper-text" data-error="Not a valid Email!" data-success="Valid Email!"></span>
+                </div>
+                <div class="input-field">
+                    <input type="password" name="password" placeholder="Password">
+                </div>
+                <div class="input-field">
+                    <input type="password" name="password2" placeholder="Re-enter Password">
+                </div>
+                <button class="waves-effect waves-light btn-large sign-up-submit" type="submit">Register</button>
+            </form>
+        </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+</body>
+
+</html>

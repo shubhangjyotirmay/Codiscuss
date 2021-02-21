@@ -30,7 +30,7 @@ body {
 }
 
 .page1-container1 {
-	background: linear-gradient(-45deg, #ee7752, #e73c7e, #21dddd, #25d84c);
+	background: linear-gradient(-45deg, #c6ffdd, #fbd786, #f7797d);
 	background-size: 400% 400%;
 	animation: gradient 15s ease infinite;
 	background-attachment: fixed;
@@ -57,7 +57,8 @@ body {
 	letter-spacing: 1.5px;
 }
 
-.page1-navbar .navtitle, .page1-bot-cont .navtitle {
+.page1-navbar .navtitle,
+.page1-bot-cont .navtitle {
 	font-size: 2rem;
 	font-weight: 900;
 	letter-spacing: 1.5px;
@@ -79,7 +80,7 @@ body {
 	}
 }
 
-.page1-navbar a {
+.page1-navbar button {
 	font-size: 1.3rem;
 	border-radius: 8px;
 	font-weight: 500;
@@ -153,10 +154,11 @@ body {
 
 .get-started {
 	margin: 70px auto 0 0;
-	font-size: 1.5rem;
+	font-size: 1.6rem;
 	background-color: #6a1a7e;
 	border-radius: 10px;
 	width: 300px;
+	font-weight: 600;
 }
 
 .meet-img {
@@ -241,7 +243,37 @@ body {
 
 .vert-line {
 	height: 80px;
-    background-color: white;
-    width: 3px;
-    margin: 0 20px;
+	background-color: white;
+	width: 3px;
+	margin: 0 20px;
+}
+
+.register-page, .login-page {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	height: 100vh;
+	background: #16222A;
+	background: -webkit-linear-gradient(to bottom, #3A6073, #16222A);
+	background: linear-gradient(to bottom, #3A6073, #16222A);
+	background-attachment: fixed;
+}
+
+.sign-up-form, .login-form {
+	background-attachment: fixed;
+	background: #603813;
+	background: -webkit-linear-gradient(to bottom, #b29f94, #603813);
+	background: linear-gradient(to bottom, #b29f94, #603813);
+	width: 500px;
+	padding: 50px;
+}
+
+.sign-up-submit, .login-submit {
+	font-size: 1.3rem;
+	background-color: #6a1a7e;
+	border-radius: 10px;
+	width: 150px;
+	font-weight: 500;
 }
