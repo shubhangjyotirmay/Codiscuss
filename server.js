@@ -126,6 +126,11 @@ app.get("/dashboard", (req, res) => {
     }
 })
 
+app.get("/logout", (req, res) => {
+    req.logout();
+    res.redirect("/");
+})
+
 app.listen(PORT, () => {
     console.log("Server Started!");
 });

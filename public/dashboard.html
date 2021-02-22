@@ -18,7 +18,25 @@
     <title>Codiscuss</title>
 </head>
 <body>
-    <h1>dahsboard user</h1>
+    <div class="dashboard-page">
+
+        <div class="navbar-fixed z-depth-3 page1-navbar">
+            <nav>
+                <div class="nav-wrapper blue-grey darken-4">
+                    <ul id="nav-mobile" class="left hide-on-med-and-down">
+                        <li><img class="navbar-logo" src="resources/logo.png" alt=""></li>
+                        <li><span class="navtitle">Codiscuss</span></li>
+                    </ul>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <form action="/logout" method="get">
+                            <li><button class="waves-effect waves-light btn" type="submit">Logout</button></li>
+                        </form>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.js"
         integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
