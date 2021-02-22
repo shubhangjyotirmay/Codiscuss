@@ -22,9 +22,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-const mongoURL = "mongodb+srv://Codiscuss-admin:" + process.env.dB_password + "@codiscuss.qhijz.mongodb.net/codiscussDB?retryWrites=true&w=majority"
-
-mongoose.connect(mongoURL, {
+mongoose.connect(process.env.mongoURL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false

@@ -20,6 +20,7 @@ $(document).ready(function () {
         loop: true,
         autoplay: {
             delay: 4000,
+            disableOnInteraction: false
         },
         slidesPerView: 4,
         coverflowEffect: {
