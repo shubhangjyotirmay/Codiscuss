@@ -6,6 +6,7 @@ const path = require("path");
 const session = require("express-session");
 const passport = require("passport");
 const flash = require('connect-flash');
+const nodemailer = require("nodemailer");
 const passportLocalMongoose = require("passport-local-mongoose");
 
 const app = express();
@@ -58,35 +59,99 @@ app.use(express.static(__dirname + "/public/"));
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+app.use(bodyParser.json());
+
+app.get("/verification", (req, res) => {
+    if (req.isAuthenticated()) {
+        console.log("here 69");
+        res.redirect("/dashboard");
+    } else {
+        console.log("here 6969");
+        res.render("verification");
+    }
+})
+
+var checkCode = -1;
+var userEmail;
+var code;
+var regConfirm = -1;
+app.post("/verification", (req, res) => {
+    checkCode = Math.floor(10000000 + Math.random() * 90000000);
+    userEmail = req.body.email;
+    console.log("here " + userEmail);
+    var transporter = nodemailer.createTransport({
+        service: "Gmail",
+        auth: {
+            user: process.env.GMAIL_ID,
+            pass: process.env.GMAIL_PASSWORD,
+        },
+    });
+    var mailOptions = {
+        from: process.env.GMAIL_ID,
+        to: userEmail,
+        subject: "Verification Code",
+        html: `<p>Your 8-digit Verification Code is: ${checkCode}`,
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            console.log(error);
+            res.redirect("/verification");
+        } else {
+            console.log("Email sent: " + info.response + ` ${checkCode}`);
+            //res.redirect("/register");
+        }
+    });
+})
+
+app.post("/confirm", (req, res) => {
+    code = Number(req.body.code);
+    if (code === checkCode) {
+        console.log("here 5");
+        regConfirm = 0;
+        res.redirect("/register");
+    } else {
+        console.log("here 55");
+        res.redirect("/verification");
+    }
+})
 
 app.get("/register", (req, res) => {
     if (req.isAuthenticated()) {
         console.log("here 1");
         res.redirect("/dashboard");
-    } else {
+    } else if (regConfirm === 0) {
         console.log("here 2");
         res.render("register");
+    } else {
+        console.log("here 3");
+        res.redirect("/verification");
     }
 })
-app.post("/register", (req, res) => {
-    const newUser = new User({
-        name: req.body.name,
-        email: req.body.email,
-    });
 
+app.post("/register", (req, res) => {
+    const name = req.body.name;
     const password1 = req.body.password;
     const password2 = req.body.password2;
 
     if (password1 === password2) {
+        console.log("a1");
+        const newUser = new User({
+            name: name,
+            email: userEmail,
+            verified: true,
+        });
         User.register(newUser, req.body.password, function (err, user) {
+            console.log("a2");
             if (err) {
                 console.log(err + " here 3");
                 res.redirect("/register");
             } else {
-                passport.authenticate("local")(req, res, function () {
+                console.log("a3");
+                User.authenticate("local")(req, res, function () {
                     console.log("here 4");
-                    res.redirect("/dashboard");
-                })
+                    res.redirect("/login");
+                });
             }
         })
     } else {

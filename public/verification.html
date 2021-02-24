@@ -18,19 +18,22 @@
 
 <body>
 
-    <div class="login-page">
+    <div class="register-page">
 
-        <div class="login-form z-depth-3">
-            <form action="/login" method="post">
-                <h2>Login!</h2>
+        <div class="sign-up-form z-depth-3">
+            <form id="verification_form">
+                <h2>Verify your Email!</h2>
                 <div class="input-field">
-                    <input type="email" name="email" placeholder="Email" class="validate" autocomplete="off"> 
+                    <input type="email" id="email-input" name="email" placeholder="Email" class="validate" autocomplete="off"> 
                     <span class="helper-text" data-error="Not a valid Email!" data-success="Valid Email!"></span>
                 </div>
                 <div class="input-field">
-                    <input type="password" name="password" placeholder="Password">
+                    <input type="number" name="code" placeholder="code" autocomplete="off" min="00000000" max="99999999" onkeydown="return event.keyCode !== 69">
                 </div>
-                <button class="waves-effect waves-light btn-large login-submit" type="submit">Login</button>
+                <button class="waves-effect waves-light btn-large verification-button" type="button" formaction="/verification" formmethod="post">Get Verification Code</button>
+                <br>
+                <br>
+                <button class="waves-effect waves-light btn-large confirm-veri-button" type="submit" formaction="/confirm" formmethod="post">Confirm</button>
             </form>
         </div>
 
@@ -39,6 +42,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"
         integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="js/verification.js"></script>
 </body>
 
 </html>

@@ -254,7 +254,7 @@ body {
 	justify-content: center;
 	align-items: center;
 	width: 100vw;
-	height: 100vh;
+	min-height: 100vh;
 	background: #16222A;
 	background: -webkit-linear-gradient(to bottom, #3A6073, #16222A);
 	background: linear-gradient(to bottom, #3A6073, #16222A);
@@ -276,4 +276,38 @@ body {
 	border-radius: 10px;
 	width: 150px;
 	font-weight: 500;
+}
+
+.sign-up-submit, .login-submit {
+	font-size: 1.3rem;
+	background-color: #6a1a7e;
+	border-radius: 10px;
+	width: 150px;
+	font-weight: 500;
+}
+
+.sign-up-submit, .login-submit {
+	font-size: 1.3rem;
+	background-color: #6a1a7e;
+	border-radius: 10px;
+	width: 150px;
+	font-weight: 500;
+}
+
+.verification-button, .confirm-veri-button {
+	font-size: 1.1rem;
+	background-color: #6a1a7e;
+	border-radius: 10px;
+	width: 260px;
+	font-weight: 500;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
 }

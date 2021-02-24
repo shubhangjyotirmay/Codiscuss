@@ -10,6 +10,10 @@ const UserSchema = new mongoose.Schema({
         type: "string",
         required: true
     },
+    verified: {
+        type: "boolean",
+        default: false
+    }
 }, {timestamps: true});
 
 UserSchema.plugin(passportLocalMongoose, {usernameField: 'email'});
