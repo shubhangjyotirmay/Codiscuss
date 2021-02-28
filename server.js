@@ -7,9 +7,16 @@ const session = require("express-session");
 const passport = require("passport");
 const flash = require('connect-flash');
 const nodemailer = require("nodemailer");
+const http = require("http");
+const socketio = require("socket.io");
 const passportLocalMongoose = require("passport-local-mongoose");
+const {
+    getUserDashboard,
+} = require("./utils/user");
 
 const app = express();
+const server = http.createServer(app);
+const io = socketio(server);
 
 const PORT = process.env.PORT || 3000;
 
@@ -36,7 +43,8 @@ mongoose.connection.on("error", () => {
     console.log("Failed to connect to database!");
 });
 
-const User = require("./database/User")
+const User = require("./database/User");
+const { Socket } = require("dgram");
 
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
@@ -170,12 +178,15 @@ app.get("/login", (req, res) => {
     }
 })
 
+var humaaraUser = {};
 app.post('/login',
     passport.authenticate('local', {
         failureRedirect: '/login',
         failureFlash: true,
     }),
     function (req, res) {
+        humaaraUser = req.user;
+        //console.log(humaaraUser);
         res.redirect('/dashboard');
     });
 
@@ -194,6 +205,10 @@ app.get("/logout", (req, res) => {
     res.redirect("/");
 })
 
-app.listen(PORT, () => {
+io.on("connection", socket => {
+    socket.emit("dashboard", getUserDashboard(humaaraUser.name, humaaraUser.email));
+});
+
+server.listen(PORT, () => {
     console.log("Server Started!");
 });
