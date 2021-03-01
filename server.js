@@ -23,7 +23,10 @@ const PORT = process.env.PORT || 3000;
 app.use(session({
     secret: process.env.session_secret,
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie : {
+        maxAge: 1000* 60 * 60 *24 * 365
+    },
 }));
 
 app.use(passport.initialize());
