@@ -35,8 +35,9 @@ app.use(session({
     cookie : {
         maxAge: 1000* 60 * 60 *24 * 365
     },
-    store: MongoStore.create({
+    store: new MongoStore({
         mongoUrl: process.env.mongoURL,
+        auto_reconnect: true
     }),
 }));
 
