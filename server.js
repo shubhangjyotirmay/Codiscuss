@@ -9,6 +9,7 @@ const flash = require('connect-flash');
 const nodemailer = require("nodemailer");
 const http = require("http");
 const socketio = require("socket.io");
+const MongoStore = require("connect-mongo").default;
 const passportLocalMongoose = require("passport-local-mongoose");
 const {
     getUserDashboard,
@@ -20,6 +21,13 @@ const io = socketio(server);
 
 const PORT = process.env.PORT || 3000;
 
+mongoose.connect(process.env.mongoURL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+});
+mongoose.set('useCreateIndex', true);
+
 app.use(session({
     secret: process.env.session_secret,
     resave: false,
@@ -27,18 +35,15 @@ app.use(session({
     cookie : {
         maxAge: 1000* 60 * 60 *24 * 365
     },
+    store: MongoStore.create({
+        mongoUrl: process.env.mongoURL,
+    }),
 }));
 
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-mongoose.connect(process.env.mongoURL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false
-});
-mongoose.set('useCreateIndex', true);
 mongoose.connection.on("connected", () => {
     console.log("Connected to Database!");
 });
