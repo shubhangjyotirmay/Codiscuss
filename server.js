@@ -59,12 +59,16 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+var humaaraUser = {};
+
 app.get("/", (req, res) => {
     if (req.isAuthenticated()) {
-        console.log("here 101");
+        //console.log("here 101");
+        humaaraUser = req.user;
+        //console.log(humaaraUser);
         res.redirect("/dashboard");
     } else {
-        console.log("here 102");
+        //console.log("here 102");
         res.sendFile(__dirname + "/public/index.html");
     }
 });
@@ -80,10 +84,12 @@ app.use(bodyParser.json());
 
 app.get("/verification", (req, res) => {
     if (req.isAuthenticated()) {
-        console.log("here 69");
+        //console.log("here 69");
+        humaaraUser = req.user;
+        //console.log(humaaraUser);
         res.redirect("/dashboard");
     } else {
-        console.log("here 6969");
+        //console.log("here 6969");
         res.render("verification");
     }
 })
@@ -95,7 +101,7 @@ var regConfirm = -1;
 app.post("/verification", (req, res) => {
     checkCode = Math.floor(10000000 + Math.random() * 90000000);
     userEmail = req.body.email;
-    console.log("here " + userEmail);
+    //console.log("here " + userEmail);
     var transporter = nodemailer.createTransport({
         service: "Gmail",
         auth: {
@@ -124,24 +130,26 @@ app.post("/verification", (req, res) => {
 app.post("/confirm", (req, res) => {
     code = Number(req.body.code);
     if (code === checkCode) {
-        console.log("here 5");
+        //console.log("here 5");
         regConfirm = 0;
         res.redirect("/register");
     } else {
-        console.log("here 55");
+        //console.log("here 55");
         res.redirect("/verification");
     }
 })
 
 app.get("/register", (req, res) => {
     if (req.isAuthenticated()) {
-        console.log("here 1");
+        //console.log("here 1");
+        humaaraUser = req.user;
+        //console.log(humaaraUser);
         res.redirect("/dashboard");
     } else if (regConfirm === 0) {
-        console.log("here 2");
+        //console.log("here 2");
         res.render("register");
     } else {
-        console.log("here 3");
+        //console.log("here 3");
         res.redirect("/verification");
     }
 })
@@ -152,42 +160,43 @@ app.post("/register", (req, res) => {
     const password2 = req.body.password2;
 
     if (password1 === password2) {
-        console.log("a1");
+        //console.log("a1");
         const newUser = new User({
             name: name,
             email: userEmail,
             verified: true,
         });
         User.register(newUser, req.body.password, function (err, user) {
-            console.log("a2");
+            //console.log("a2");
             if (err) {
                 console.log(err + " here 3");
                 res.redirect("/register");
             } else {
-                console.log("a3");
+                //console.log("a3");
                 User.authenticate("local")(req, res, function () {
-                    console.log("here 4");
+                    //console.log("here 4");
                     res.redirect("/login");
                 });
             }
         })
     } else {
-        console.log("here 50");
+        //console.log("here 50");
         res.redirect("/register");
     }
 });
 
 app.get("/login", (req, res) => {
     if (req.isAuthenticated()) {
-        console.log("here 9");
+        //console.log("here 9");
+        humaaraUser = req.user;
+        //console.log(humaaraUser);
         res.redirect("/dashboard");
     } else {
-        console.log("here 99");
+        //console.log("here 99");
         res.render("login");
     }
 })
 
-var humaaraUser = {};
 app.post('/login',
     passport.authenticate('local', {
         failureRedirect: '/login',
@@ -201,10 +210,12 @@ app.post('/login',
 
 app.get("/dashboard", (req, res) => {
     if (req.isAuthenticated()) {
-        console.log("here 5");
+        //console.log("here 5");
+        humaaraUser = req.user;
+        //console.log(humaaraUser);
         res.render("dashboard");
     } else {
-        console.log("here 6");
+        //console.log("here 6");
         res.redirect("/");
     }
 })
@@ -219,5 +230,5 @@ io.on("connection", socket => {
 });
 
 server.listen(PORT, () => {
-    console.log("Server Started!");
+    console.log(`Server Started on port ${PORT}!`);
 });
