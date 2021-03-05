@@ -45,6 +45,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+var humaaraUser = {};
+app.use(function(req, res, next) {
+    humaaraUser = req.user;
+    next();
+});
+
 mongoose.connection.on("connected", () => {
     console.log("Connected to Database!");
 });
@@ -58,8 +64,6 @@ const { Socket } = require("dgram");
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-
-var humaaraUser = {};
 
 app.get("/", (req, res) => {
     if (req.isAuthenticated()) {
