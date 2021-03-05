@@ -45,12 +45,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-var humaaraUser = {};
-app.use(function(req, res, next) {
-    humaaraUser = req.user;
-    next();
-});
-
 mongoose.connection.on("connected", () => {
     console.log("Connected to Database!");
 });
@@ -68,8 +62,6 @@ passport.deserializeUser(User.deserializeUser());
 app.get("/", (req, res) => {
     if (req.isAuthenticated()) {
         //console.log("here 101");
-        humaaraUser = req.user;
-        //console.log(humaaraUser);
         res.redirect("/dashboard");
     } else {
         //console.log("here 102");
@@ -89,8 +81,6 @@ app.use(bodyParser.json());
 app.get("/verification", (req, res) => {
     if (req.isAuthenticated()) {
         //console.log("here 69");
-        humaaraUser = req.user;
-        //console.log(humaaraUser);
         res.redirect("/dashboard");
     } else {
         //console.log("here 6969");
@@ -146,8 +136,6 @@ app.post("/confirm", (req, res) => {
 app.get("/register", (req, res) => {
     if (req.isAuthenticated()) {
         //console.log("here 1");
-        humaaraUser = req.user;
-        //console.log(humaaraUser);
         res.redirect("/dashboard");
     } else if (regConfirm === 0) {
         //console.log("here 2");
@@ -192,8 +180,6 @@ app.post("/register", (req, res) => {
 app.get("/login", (req, res) => {
     if (req.isAuthenticated()) {
         //console.log("here 9");
-        humaaraUser = req.user;
-        //console.log(humaaraUser);
         res.redirect("/dashboard");
     } else {
         //console.log("here 99");
@@ -207,16 +193,15 @@ app.post('/login',
         failureFlash: true,
     }),
     function (req, res) {
-        humaaraUser = req.user;
-        //console.log(humaaraUser);
         res.redirect('/dashboard');
     });
 
 app.get("/dashboard", (req, res) => {
     if (req.isAuthenticated()) {
         //console.log("here 5");
-        humaaraUser = req.user;
-        //console.log(humaaraUser);
+        io.on("connection", socket => {
+            socket.emit("dashboard", getUserDashboard(req.user.name, req.user.email));
+        });
         res.render("dashboard");
     } else {
         //console.log("here 6");
@@ -229,9 +214,9 @@ app.get("/logout", (req, res) => {
     res.redirect("/");
 })
 
-io.on("connection", socket => {
-    socket.emit("dashboard", getUserDashboard(humaaraUser.name, humaaraUser.email));
-});
+// io.on("connection", socket => {
+//     socket.emit("dashboard", getUserDashboard(humaaraUser.name, humaaraUser.email));
+// });
 
 server.listen(PORT, () => {
     console.log(`Server Started on port ${PORT}!`);
