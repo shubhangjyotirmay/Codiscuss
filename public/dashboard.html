@@ -30,7 +30,24 @@
 </head>
 
 <body>
-    <div class="dashboard-page">
+    <div class="loader">
+        <div class="icon-loader">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <section class="spinner-container">
+            <div class="spinner"><span class="spinner__leter" letter="C">C</span><span class="spinner__leter"
+                    letter="O">O</span><span class="spinner__leter" letter="D">D</span><span class="spinner__leter"
+                    letter="I">I</span><span class="spinner__leter" letter="S">S</span><span class="spinner__leter"
+                    letter="C">C</span><span class="spinner__leter" letter="U">U</span><span class="spinner__leter"
+                    letter="S">S</span><span class="spinner__leter" letter="S">S</span>
+            </div>
+        </section>
+    </div>
+
+    <div class="dashboard-page hidden">
 
         <div class="navbar-fixed z-depth-3 page1-navbar">
             <nav>
@@ -171,6 +188,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"
         integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="js/dashboard.js"></script>
 </body>
